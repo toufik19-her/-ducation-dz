@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تعليمية بالذكاء الاصطناعي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1d4ed8',
+                        secondary: '#93c5fd',
+                        background: '#f8f9fa',
+                        card: '#ffffff',
+                        text: '#333333',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1000px;
+        }
+        .btn-primary {
+            background-color: #1d4ed8;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-text">
+
+    <main class="container mx-auto p-4 md:p-8">
+        <!-- قسم العنوان والوصف -->
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-5xl font-bold text-primary mb-4 animate-fade-in-down">
+                منصة جيل المستقبل: تعليم ابتدائي جزائري بالذكاء الاصطناعي
+            </h1>
+            <p class="text-lg md:text-xl text-gray-700">
+                أداة مبتكرة للمعلمين وأولياء الأمور لتوليد محتوى تعليمي مخصص ومتوافق مع المنهج الجزائري.
+            </p>
+        </header>
+
+        <!-- قسم توليد المحتوى -->
+        <section class="bg-card p-6 md:p-10 rounded-2xl shadow-xl mb-12 border border-gray-200">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">
+                مولد المحتوى الذكي
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- اختيار المادة -->
+                <div>
+                    <label for="material" class="block text-sm font-medium text-gray-700 mb-2">المادة</label>
+                    <select id="material" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <option value="اللغة العربية">اللغة العربية</option>
+                        <option value="الرياضيات">الرياضيات</option>
+                        <option value="العلوم">العلوم</option>
+                        <option value="التربية الإسلامية">التربية الإسلامية</option>
+                        <option value="التاريخ والجغرافيا">التاريخ والجغرافيا</option>
+                        <option value="اللغة الفرنسية">اللغة الفرنسية</option>
+                    </select>
+                </div>
+
+                <!-- اختيار المستوى -->
+                <div>
+                    <label for="level" class="block text-sm font-medium text-gray-700 mb-2">المستوى الدراسي</label>
+                    <select id="level" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <option value="السنة الأولى">السنة الأولى</option>
+                        <option value="السنة الثانية">السنة الثانية</option>
+                        <option value="السنة الثالثة">السنة الثالثة</option>
+                        <option value="السنة الرابعة">السنة الرابعة</option>
+                        <option value="السنة الخامسة">السنة الخامسة</option>
+                    </select>
+                </div>
+
+                <!-- اختيار نوع المحتوى -->
+                <div>
+                    <label for="contentType" class="block text-sm font-medium text-gray-700 mb-2">نوع المحتوى</label>
+                    <select id="contentType" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <option value="مذكرة دراسية">مذكرة دراسية</option>
+                        <option value="تمرين تفاعلي">تمرين تفاعلي</option>
+                        <option value="نص تعليمي">نص تعليمي</option>
+                    </select>
+                </div>
+
+                <!-- إدخال الموضوع -->
+                <div class="md:col-span-2 lg:col-span-1">
+                    <label for="topic" class="block text-sm font-medium text-gray-700 mb-2">الموضوع (اختياري)</label>
+                    <input type="text" id="topic" placeholder="مثال: الكسور، الأمير عبد القادر" class="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="generateContent()" class="btn-primary w-full md:w-auto">
+                    <span id="generateButtonText">توليد المحتوى</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- منطقة عرض المحتوى المُولَّد -->
+        <section id="result-section" class="hidden bg-card p-6 md:p-10 rounded-2xl shadow-xl border border-gray-200">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">
+                المحتوى المُولَّد
+            </h2>
+            <!-- مؤشر التحميل -->
+            <div id="loading" class="hidden text-center text-gray-500">
+                <div class="flex justify-center items-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>جارٍ توليد المحتوى...</span>
+                </div>
+            </div>
+            <div id="generatedContent" class="prose max-w-none text-gray-800 leading-relaxed">
+                <!-- المحتوى سيظهر هنا -->
+            </div>
+            <div class="flex justify-end mt-6">
+                <button onclick="copyContent()" class="bg-gray-200 text-gray-700 p-2 rounded-lg hover:bg-gray-300 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                        <path d="M5 3a2 2 0 00-2 2v6a2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                    </svg>
+                    نسخ المحتوى
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // إعداد API Key (يبقى فارغًا)
+        const apiKey = "";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+        // دالة لتحويل النص إلى markdown
+        function parseMarkdown(text) {
+            // تحويل العناوين
+            text = text.replace(/^###\s*(.*)$/gm, '<h3>$1</h3>');
+            text = text.replace(/^##\s*(.*)$/gm, '<h2>$1</h2>');
+            text = text.replace(/^#\s*(.*)$/gm, '<h1>$1</h1>');
+
+            // تحويل القوائم
+            text = text.replace(/^- (.*)$/gm, '<li>$1</li>');
+            text = text.replace(/(<li>.*<\/li>)/g, '<ul>$1</ul>');
+
+            // تحويل الخط العريض والمائل
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+            // تحويل الأسطر الجديدة إلى فقرات
+            text = text.split('\n\n').map(p => `<p>${p}</p>`).join('');
+
+            return text;
+        }
+
+        async function generateContent() {
+            const material = document.getElementById('material').value;
+            const level = document.getElementById('level').value;
+            const contentType = document.getElementById('contentType').value;
+            const topic = document.getElementById('topic').value;
+
+            const resultSection = document.getElementById('result-section');
+            const generatedContentDiv = document.getElementById('generatedContent');
+            const loadingIndicator = document.getElementById('loading');
+            const generateButtonText = document.getElementById('generateButtonText');
+
+            // إظهار قسم النتائج ومؤشر التحميل
+            resultSection.classList.remove('hidden');
+            loadingIndicator.classList.remove('hidden');
+            generatedContentDiv.innerHTML = '';
+            generateButtonText.textContent = 'جارٍ التوليد...';
+
+            const userPrompt = `
+                أنت مُولِّد محتوى تعليمي متخصص في التعليم الابتدائي الجزائري. مهمتك هي توليد محتوى عالي الجودة ومناسب للمنهج الدراسي.
+                بناءً على المُدخلات التالية، قم بإنشاء محتوى تعليمي مفصل ومهيكل:
+                - المادة: ${material}
+                - المستوى: ${level}
+                - نوع المحتوى: ${contentType}
+                - الموضوع: ${topic || 'عام'}
+
+                اجعل المحتوى جذابًا، واضحًا، ومباشرًا. يجب أن يتوافق مع المنهج الرسمي لوزارة التربية الوطنية الجزائرية، خاصة من حيث المفاهيم والمصطلحات. إذا كان المحتوى مذكرة دراسية، قم بهيكلتها على شكل: أهداف الدرس، المفاهيم الأساسية، وأمثلة تطبيقية. إذا كان تمرينًا، قم بصياغته بأسئلة واضحة. إذا كان نصًا، اجعله يتضمن قيمًا وطنية جزائرية أو معلومات تاريخية/علمية مبسطة.
+            `;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                systemInstruction: {
+                    parts: [{ text: "أنتَ نظام ذكاء اصطناعي مُختص في توليد محتوى تعليمي للمرحلة الابتدائية في الجزائر. حافظ على اللغة العربية الفصيحة والمبسطة." }]
+                }
+            };
+
+            let retries = 0;
+            const maxRetries = 3;
+            const baseDelay = 1000;
+
+            const makeApiCall = async () => {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (text) {
+                        generatedContentDiv.innerHTML = parseMarkdown(text);
+                    } else {
+                        generatedContentDiv.innerHTML = `<p class="text-red-500">حدث خطأ في توليد المحتوى. حاول مرة أخرى.</p>`;
+                    }
+
+                } catch (error) {
+                    if (retries < maxRetries) {
+                        retries++;
+                        const delay = baseDelay * Math.pow(2, retries);
+                        console.log(`Retry ${retries}/${maxRetries}. Retrying in ${delay}ms...`);
+                        setTimeout(makeApiCall, delay);
+                    } else {
+                        console.error('API call failed after multiple retries:', error);
+                        generatedContentDiv.innerHTML = `<p class="text-red-500">فشل في الاتصال بخادم التوليد. الرجاء التحقق من اتصالك بالإنترنت والمحاولة لاحقًا.</p>`;
+                    }
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    generateButtonText.textContent = 'توليد المحتوى';
+                }
+            };
+            
+            makeApiCall();
+        }
+
+        function copyContent() {
+            const content = document.getElementById('generatedContent').innerText;
+            if (content) {
+                const textarea = document.createElement('textarea');
+                textarea.value = content;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+
+                alert('تم نسخ المحتوى بنجاح!'); // استخدام alert لأن هذا التطبيق ليس في بيئة iFrame.
+            }
+        }
+    </script>
+</body>
+  </html>
